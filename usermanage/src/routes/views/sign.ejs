@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./static/sign.css">
+
+  
+</head>
+<body>
+    <% 
+       if(typeof message !=='undefined'){
+        %>
+        <p class="p">  <%= message%>  </p>
+        <% 
+       } 
+        %>
+ 
+    <form action="" method="post" id="cform" >
+        <input id="first" type="text" placeholder="Name"  onkeyup="validateName()" name="name" required>
+        <div id="name-error"></div>
+      
+      
+        <input id="email" type="email" placeholder="Email" onkeyup="validateEmail" name="email" required>
+        <div id="email-error"></div>
+
+        <input id="second" type="password" placeholder="Password" onkeyup="validatePassword()" name="password" required>
+        <div id="pas-error"></div>
+
+        <input id="country" type="text" placeholder="Mobile" onkeyup="validateMobile()" name="mobile" required>
+        <div id="mob-error"></div>
+
+        <button type="submit">Sign up</button>
+    </form>
+    <p class="signup">Already have an account? <a href="/login"><span>Log In</span></a></p>
+
+    <script>
+        
+        function validateName() {
+  var name = document.getElementById('first').value;
+  var nameError = document.getElementById('name-error');
+
+  if (name.trim().length === 0) {
+    nameError.innerHTML = 'Name is required';
+    nameError.style.color = 'red';
+    return false;
+  }
+
+
+if (!name.match(/^[A-Za-z\s]+$/)) {
+    nameError.innerHTML = 'Name must contain only letters and spaces';
+    nameError.style.color = 'red';
+    return false;
+  }
+
+ nameError.innerHTML = 'Valid';
+ nameError.style.color = 'green';
+  return true;
+}
+
+
+
+
+
+function validateEmail() {
+  var email = document.getElementById('email').value;
+  var emailError = document.getElementById('email-error');
+
+  if (email.trim().length === 0) {
+    emailError.innerHTML = 'Email is required';
+    emailError.style.color = 'red';
+    return false;
+  }
+
+  // Email validation using a simple regex
+  if (!email.match(/^\S+@\S+\.com$/)) {
+    emailError.innerHTML = 'Invalid email format';
+    emailError.style.color = 'red';
+    return false;
+  }
+
+  emailError.innerHTML = 'Valid';
+  emailError.style.color = 'green';
+  return true;
+}
+
+function validatePassword() {
+  let  password= document.getElementById('second').value;
+  let passError = document.getElementById('pas-error');
+
+  if (password.trim().length === 0) {
+    passError.innerHTML = 'password is required';
+    passError.style.color = 'red';
+    return false;
+  }
+if(password.length<=6){
+    passError.innerHTML = 'atleast 6 length need';
+    passError.style.color = 'red';
+    return false;
+
+}
+
+
+passError.innerHTML = 'Valid';
+ passError.style.color = 'green';
+  return true;
+}
+
+
+function validateMobile(){
+
+    let  mobile= document.getElementById('country').value;
+  let mobileError= document.getElementById('mob-error');
+
+  if (mobile.trim().length === 0) {
+    mobileError.innerHTML = 'mobile number is required';
+    mobileError.style.color = 'red';
+    return false;
+  }
+
+     
+        if(mobile.length<10){
+            mobileError.innerHTML='its not valid'
+            mobileError.style.color = 'red';
+            return false;
+        }
+   
+         if(!mobile.match(/^[1-9]\d{9}$/)){
+            mobileError.innerHTML='its not valid'
+            mobileError.style.color = 'red';
+
+            return false;
+        }
+    
+        
+mobileError.innerHTML = 'Valid';
+ mobileError.style.color = 'green';
+  return true;
+
+}
+
+
+
+document.getElementById('cform').addEventListener('submit', function(event) {
+  if (!validateName() || !validateEmail()) {
+    event.preventDefault(); // Prevent form submission if validation fails
+  }
+});
+
+document.getElementById('email').addEventListener('keyup', validateEmail);
+
+
+        
+        
+    </script>
+   
+
+</body>
+</html>

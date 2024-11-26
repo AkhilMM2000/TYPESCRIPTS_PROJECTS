@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Todo List</h1>
+
+        <!-- Add New Task Form -->
+        <form action="/add" method="POST">
+            <input type="text" name="task" placeholder="New Task" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <!-- Task List -->
+        <ul>
+            <% tasks.forEach(task => { %>
+                <li class="<%= task.completed ? 'completed' : '' %>">
+                    <input type="checkbox" 
+                        <% if (task.completed) { %> checked <% } %> 
+                        onclick="location.href='/toggle/<%= task.id %>'">
+                    <span><%= task.task %></span>
+
+                    <!-- Edit Task -->
+                    <form action="/edit/<%= task.id %>" method="POST" style="display:inline;">
+                        <input type="text" name="task" value="<%= task.task %>" required>
+                        <button type="submit">Save</button>
+                    </form>
+
+                    <!-- Delete Task -->
+                    <a href="/delete/<%= task.id %>" id="ids">Delete</a>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>
